@@ -1,10 +1,76 @@
-/**app.wxss**/
+/** app.wxss **/
+
+/* 页面根元素 */
+page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #f7f7f7;
+}
+
+/* 页面容器 */
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+  box-sizing: border-wrapper;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* 表单 */
+.form-group {
+  width: calc(100% - 80rpx);
+  margin: 20rpx;
+  border-radius: 10px;
+  background: white;
+}
+
+/* 表单元素 */
+.form-cell {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 24rpx 30rpx;
+}
+
+.form-cell:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.form-cell:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.form-cell:not(:last-child) {
+  border-bottom: rgba(0, 0, 0, 0.05) solid 2rpx;
+}
+
+/** 悬停样式 */
+.hover-style {
+  background-color: #dddddd; /* 背景色变灰 */
+}
+
+/* 提示 */
+.tip {
+  width: calc(100% - 150rpx);
+  color: #999999;
+  font-size: 13px;
+}
+
+.above-tip {
+  margin-top: 40rpx;
+}
+
+.below-tip {
+  margin-top: 0;
+  margin-bottom: 20rpx;
+}
+
+/* 版权信息 */
+.copyright {
+  color: #999999;
+  font-size: 14px;
+}

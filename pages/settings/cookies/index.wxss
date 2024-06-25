@@ -1,0 +1,5 @@
+/* pages/settings/cookies/index.wxss */
+
+input {
+  width: 100%;
+}

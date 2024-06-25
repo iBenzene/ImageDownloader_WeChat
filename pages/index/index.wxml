@@ -1,27 +1,51 @@
-<!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
-        </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
+<!-- pages/dev/dev.wxml -->
+<view class="container">
+  <!-- 主卡片 -->
+  <view class="main-card">
+    <!-- 卡片顶部栏 -->
+    <view class="header">
+      <!-- 占位的空白 -->
+      <view class="blank"></view>
+
+      <!-- LOGO -->
+      <view class="logo-container">
+        <image src="images/logo.svg" class="logo"></image>
+        <view class="spacer"></view>
+        <text class="title" style="color: {{accentColor}}">苯苯存图</text>
+      </view>
+
+      <!-- 下拉菜单 -->
+      <view class="menu">
+        <picker mode="selector" range="{{downloaderTypes}}" bindchange="onPickerChange">
+          <view class="menu-button">
+            <image src="images/ellipsis.circle.svg" class="icon"></image>
+          </view>
+        </picker>
+      </view>
     </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+
+    <!-- 文本输入框 -->
+    <view class="text-editor">
+      <textarea placeholder="请粘贴链接，每行一个" bindinput="onInput" value="{{linkInput}}" maxlength="-1"></textarea>
+    </view>
+
+    <!-- 卡片底部栏 -->
+    <view class="footer">
+      <view bindtap="pasteButtonTapped" class="paste-button">
+        <image src="images/clipboard.svg" class="icon"></image>
+      </view>
+      <view bindtap="downloadButtonTapped" class="download-button" style="background-color: {{accentColor}}">下载</view>
+      <view bindtap="clearButtonTapped" class="clear-button">
+        <image src="images/trash.svg" class="icon"></image>
+      </view>
+    </view>
+
+    <!-- 提示信息 -->
+    <view wx:if="{{feedbackMessage}}" class="feedback-message {{isError ? 'error' : 'success'}}">
+      <text>{{feedbackMessage}}</text>
     </view>
   </view>
-</scroll-view>
+
+  <!-- 版权信息 -->
+  <view class="copyright">© 2024 埃苯泽</view>
+</view>

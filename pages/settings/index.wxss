@@ -1,0 +1,59 @@
+/* pages/settings/index.wxss */
+
+/* 用户头像 */
+.avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+
+.avatar-button {
+  width: 128rpx !important;
+  height: 128rpx;
+  padding: 0;
+  background: none;
+}
+
+/* 用户昵称 */
+.nickname {
+  margin-left: 20rpx;
+  font-size: 17.5px;
+  font-weight: normal;
+}
+
+.nickname-button {
+  width: auto !important;
+  padding: 0;
+  background: none;
+}
+
+/** 查看详情 */
+.details {
+  width: 35rpx;
+  height: 35rpx;
+  margin-left: auto;
+}
+
+.details-navigator {
+  display: flex;
+  width: 100%;
+  padding: 24rpx 30rpx;
+}
+
+.details-button {
+  display: flex;
+  width: 100% !important;
+  padding: 24rpx 30rpx;
+  font-size: 16px;
+  font-weight: normal;
+  background: none;
+}
+
+/* 特殊元素包装 */
+.navigator-wrapper {
+  padding: 0;
+}
+
+.button-wrapper {
+  padding: 0;
+}

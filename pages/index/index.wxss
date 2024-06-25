@@ -1,62 +1,132 @@
-/**index.wxss**/
-page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.scrollarea {
-  flex: 1;
-  overflow-y: hidden;
-}
+/* pages/dev/dev.wxss */
 
-.userinfo {
+/* 主卡片 */
+.main-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #aaa;
-  width: 80%;
+  width: calc(100% - 80rpx);
+  border-radius: 10px;
+  margin: 20rpx 0;
+  padding-bottom: 30rpx;
+  background-color: white;
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.usermotto {
-  margin-top: 200px;
-}
-
-.avatar-wrapper {
-  padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
-.avatar {
-  display: block;
-  width: 56px;
-  height: 56px;
-}
-
-.nickname-wrapper {
+/* 主卡片顶部栏 */
+.header {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
+  margin-top: 60rpx;
+}
+
+/* LOGO 容器 */
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.spacer {
+  width: 20rpx;
+}
+
+.title {
+  font-size: 60rpx;
+  font-weight: bold;
+}
+
+/* 空白占位, 与菜单按钮的大小保持一致 */
+.blank {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 菜单按钮 */
+.menu-button {
+  display: flex;
+}
+
+.menu-button .icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 文本编辑器 */
+.text-editor {
+  display: flex;
+  justify-content: center;
+  width: 85%;
+  height: 50vh;
+  margin: 60rpx 0;
+}
+
+textarea {
   width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-  border-top: .5px solid rgba(0, 0, 0, 0.1);
-  border-bottom: .5px solid rgba(0, 0, 0, 0.1);
-  color: black;
+  height: 100%;
+  padding: 20rpx;
+  border: 3rpx solid gray;
+  border-radius: 10px;
+  background-color: #ffffff;
 }
 
-.nickname-label {
-  width: 105px;
+/* 主卡片底部栏 */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
 }
 
-.nickname-input {
-  flex: 1;
+/* 粘贴按钮 */
+.paste-button {
+  display: flex;
+}
+
+.paste-button .icon {
+  width: 40rpx;
+  height: 64rpx;
+}
+
+/* 下载按钮 */
+.download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  padding: 20rpx;
+  border-radius: 10px;
+  margin: 20rpx 20rpx 30rpx 20rpx;
+  color: white;
+  font-weight: bold;
+}
+
+/* 清空按钮 */
+.clear-button {
+  display: flex;
+}
+
+.clear-button .icon {
+  width: 50rpx;
+  height: 60rpx;
+}
+
+/* 提示信息 */
+.feedback-message {
+  text-align: center;
+  width: 85%;
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
 }

@@ -1,12 +1,32 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/settings/index",
+    "pages/settings/cookies/index",
+    "pages/settings/history/index"
   ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#eab33e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/homepage.png",
+        "selectedIconPath": "images/homepage.fill.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/settings/index",
+        "iconPath": "images/settings.png",
+        "selectedIconPath": "images/settings.fill.png",
+        "text": "设置"
+      }
+    ]
+  },
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarBackgroundColor": "#ffffff"
+    "navigationBarBackgroundColor": "#f7f7f7"
   },
   "style": "v2",
   "componentFramework": "glass-easel",

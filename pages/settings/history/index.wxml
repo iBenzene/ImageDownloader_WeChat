@@ -1,0 +1,14 @@
+<!-- pages/settings/history/index.wxml -->
+<view class="container">
+  <view class="tip above-tip">共 {{logs.length}} 条记录</view>
+  <view class="form-group">
+    <view class="form-cell" wx:for="{{logs}}" wx:key="date" bindtap="historyTapped" hover-class="hover-style">{{item.url}}</view>
+  </view>
+
+  <block wx:if="{{logs.length}}">
+    <view class="tip above-tip">清空全部记录，无法撤销</view>
+    <view class="form-group">
+      <view class="form-cell" bindtap="clearButtonTapped" style="color:red" hover-class="hover-style">清空历史记录</view>
+    </view>
+  </block>
+</view>

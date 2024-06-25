@@ -1,0 +1,64 @@
+<!-- pages/settings/index.wxml -->
+<view class="container">
+  <!-- 用户信息栏 -->
+  <view class="form-group">
+    <view class="form-cell">
+      <!-- 用户头像 -->
+      <view class="button-wrapper">
+        <button class="avatar-button" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+          <image class="avatar" src="{{userInfo.avatarUrl}}" mode="widthFix" />
+        </button>
+      </view>
+
+      <!-- 用户昵称 -->
+      <block wx:if="{{!token}}">
+        <view class="button-wrapper">
+          <button class="nickname-button" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+            <view class="nickname">未登录</view>
+          </button>
+        </view>
+      </block>
+      <block wx:else>
+        <input class="nickname" type="nickname" value="{{userInfo.nickName ? userInfo.nickName : '小可爱'}}" bind:change="onInputNickName" />
+      </block>
+    </view>
+  </view>
+
+  <!-- 设置项目栏 -->
+  <view class="form-group">
+    <view class="form-cell navigator-wrapper" hover-class="hover-style">
+      <navigator url="history/index" hover-class="none" class="details-navigator">
+        <view>历史记录</view>
+        <image class="details" src="{{detailsIconUrl}}" />
+      </navigator>
+    </view>
+    <view class="form-cell navigator-wrapper" hover-class="hover-style">
+      <navigator url="cookies/index" hover-class="none" class="details-navigator">
+        <view>管理 Cookies</view>
+        <image class="details" src="{{detailsIconUrl}}" />
+      </navigator>
+    </view>
+    <view class="form-cell button-wrapper" hover-class="hover-style">
+      <button class="details-button" open-type="share" hover-class="none">
+        <view>分享小程序</view>
+        <image class="details" src="{{detailsIconUrl}}" />
+      </button>
+    </view>
+    <view class="form-cell" hover-class="hover-style">
+      <view>常见问题</view>
+      <image class="details" src="{{detailsIconUrl}}" />
+    </view>
+    <view class="form-cell button-wrapper" hover-class="hover-style">
+      <button class="details-button" open-type="contact" hover-class="none">
+        <view>联系客服</view>
+        <image class="details" src="{{detailsIconUrl}}" />
+      </button>
+    </view>
+    <view class="form-cell" bindtap="logout" hover-class="hover-style">
+      <view>退出登录</view>
+    </view>
+  </view>
+
+  <!-- 版权信息 -->
+  <view class="copyright">© 2024 埃苯泽</view>
+</view>
