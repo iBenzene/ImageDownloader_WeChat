@@ -103,6 +103,7 @@ Page({
     // 获取一些必要的全局变量
     const app = getApp();
     const token = app.globalData.token;
+    const xhsCookie = app.globalData.xhsCookie;
     const weiboCookie = app.globalData.weiboCookie;
     const weiboCookiesPoolUrl = app.globalData.weiboCookiesPoolUrl;
     const logs = app.globalData.logs;
@@ -132,7 +133,7 @@ Page({
       wx.showLoading({
         title: '下载中'
       })
-      download(url, this.data.selectedDownloader, token, weiboCookie, weiboCookiesPoolUrl, useProxy, isDebug).then(() => {
+      download(url, this.data.selectedDownloader, token, xhsCookie, weiboCookie, weiboCookiesPoolUrl, useProxy, isDebug).then(() => {
         wx.hideLoading()
         wx.showToast({
           title: '下载成功',

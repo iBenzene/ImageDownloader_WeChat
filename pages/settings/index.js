@@ -20,22 +20,6 @@ Page({
     });
   },
 
-  /** 处理页面显示事件 */
-  onShow() {
-    const app = getApp();
-    if (!app.globalData.token) {
-      // 未登录或登录过期
-      this.setData({
-        userInfo: {
-          avatarUrl: this.data.defaultAvatarUrl,
-          nickName: ''
-        },
-        token: ''
-      });
-      app.setUserInfo(this.data.userInfo);
-    }
-  },
-
   /** 处理用户头像选择事件 */
   onChooseAvatar(e) {
     const {

@@ -4,20 +4,24 @@
 /**
  * 下载指定链接内的图片或视频, 并保存至相册
  */
-const download = async (url, selectedDownloader, token, weiboCookie, weiboCookiesPoolUrl, useProxy, isDebug) => {
+const download = async (url, selectedDownloader, token, xhsCookie, weiboCookie, weiboCookiesPoolUrl, useProxy, isDebug) => {
   // 获取请求头和目标地址
-  const headers = await getHeaders(selectedDownloader, weiboCookie, weiboCookiesPoolUrl);
+  const headers = await getHeaders(selectedDownloader, xhsCookie, weiboCookie, weiboCookiesPoolUrl);
   const apiUrl = getApiUrl(url, selectedDownloader);
   if (isDebug) {
     console.log(`headers: ${JSON.stringify(headers)}, apiUrl: ${apiUrl}`);
   }
 
+  // 发起网络请求
   let text;
   try {
-    // 发起网络请求
-    text = await fetchUrl(apiUrl, token, headers, useProxy);
-  } catch (error) {
-    throw new Error(`网络请求失败: ${error.errMsg}`);
+    let needRedirect = false;
+    if (selectedDownloader === '小红书视频下载器' && apiUrl.match(/^(?:https?:\/\/)?(?:www\.)?([^\/]+)/i)[1] === 'xhslink.com') {
+      needRedirect = true;
+    }
+    text = await fetchUrl(apiUrl, token, headers, useProxy, needRedirect);
+  } catch (err) {
+    throw new Error(`网络请求失败: ${err.message}`);
   }
 
   // 解析响应的文本并从中提取图片或视频的链接
@@ -32,19 +36,20 @@ const download = async (url, selectedDownloader, token, weiboCookie, weiboCookie
 
   // 根据提取的链接, 下载图片或视频, 并保存至相册
   for (const mediaUrl of mediaUrls) {
-    let filePath;
+    const filePath = `${wx.env.USER_DATA_PATH}/${new Date().valueOf()}.${selectedDownloader === '小红书视频下载器' ? 'mp4' : 'jpg'}`
     await new Promise((resolve, reject) => {
       wx.downloadFile({
         url: mediaUrl,
+        filePath,
         success: res => {
           if (isDebug) {
             console.log(`请求下载 ${mediaUrl} 的响应: ${JSON.stringify(res)}`);
           }
           if (res.statusCode === 200) {
-            filePath = res.tempFilePath;
+            console.log(`资源 ${mediaUrl} 下载成功, 缓存路径为 ${filePath}`);
             resolve(res);
           } else {
-            console.error(`资源 ${url} 下载失败: ${res}`);
+            console.error(`资源 ${mediaUrl} 下载失败: ${res}`);
             reject(new Error('图片或视频下载失败'));
           }
         },
@@ -64,9 +69,9 @@ module.exports = download;
 
 // 辅助函数
 /**
- *  发起网络请求, 获取包含目标资源 URL 的文本或对象
+ * 发起网络请求, 获取包含目标资源 URL 的文本或对象
  */
-const fetchUrl = async (url, token, headers, useProxy) => {
+const fetchUrl = async (url, token, headers, useProxy, needRedirect) => {
   return new Promise((resolve, reject) => {
     if (useProxy) {
       wx.request({
@@ -77,7 +82,8 @@ const fetchUrl = async (url, token, headers, useProxy) => {
         },
         data: {
           targetUrl: url, // 将实际请求的 URL 作为数据发送
-          parameter: headers // 请求头的额外参数
+          parameter: headers, // 请求头的额外参数
+          needRedirect // 是否需要重定向
         },
         success: res => {
           resolve(getResponse(res));
@@ -104,13 +110,22 @@ const fetchUrl = async (url, token, headers, useProxy) => {
 /** 
  * 获取网络请求的请求头（额外参数）
  */
-const getHeaders = async (selectedDownloader, weiboCookie, weiboCookiesPoolUrl) => {
+const getHeaders = async (selectedDownloader, xhsCookie, weiboCookie, weiboCookiesPoolUrl) => {
   switch (selectedDownloader) {
+    case '小红书视频下载器': {
+      if (xhsCookie) {
+        return {
+          Cookie: xhsCookie
+        };
+      } else {
+        throw new Error('请配置 Cookies');
+      }
+    }
     case '米游社图片下载器':
       return {
         'Referer': 'https://www.miyoushe.com/',
       };
-    case '微博图片下载器':
+    case '微博图片下载器': {
       // 优先使用 Cookies 池中的 Cookies
       if (weiboCookiesPoolUrl) {
         return new Promise((resolve, reject) => {
@@ -142,8 +157,9 @@ const getHeaders = async (selectedDownloader, weiboCookie, weiboCookiesPoolUrl) 
       } else {
         throw new Error('请配置 Cookies');
       }
-      default: // 小红书图片下载器、小红书视频下载器
-        return {};
+    }
+    default: // 小红书图片下载器
+      return {};
   }
 };
 
@@ -152,12 +168,14 @@ const getHeaders = async (selectedDownloader, weiboCookie, weiboCookiesPoolUrl) 
  */
 const getApiUrl = (url, selectedDownloader) => {
   switch (selectedDownloader) {
-    case '米游社图片下载器':
+    case '米游社图片下载器': {
       const miyousheId = url.split('/').pop();
       return `https://bbs-api.miyoushe.com/post/wapi/getPostFull?gids=2&post_id=${miyousheId}&read=1`;
-    case '微博图片下载器':
+    }
+    case '微博图片下载器': {
       const weiboId = url.split('/').pop().split('?')[0];
       return `https://weibo.com/ajax/statuses/show?id=${weiboId}&locale=zh-CN`;
+    }
     default: // 小红书图片下载器、小红书视频下载器
       return url;
   }
@@ -207,7 +225,8 @@ const extractUrls = (text, regex, prefix = '', delimiter = '', isJson = false) =
       const ids = match[1].replace(/"/g, '').split(delimiter);
       ids.forEach(id => urls.push(ensureHttps(prefix + id)));
     } else {
-      urls.push(ensureHttps(prefix + match[1]));
+      const decodedUrl = (prefix + match[1]).replace(/\\u002F/g, '/');
+      urls.push(ensureHttps(decodedUrl));
     }
   }
   return urls;
@@ -231,6 +250,7 @@ const saveImageToPhotoLibrary = async filePath => {
     wx.saveImageToPhotosAlbum({
       filePath,
       success: res => {
+        removeTempFile(filePath);
         resolve(res);
       },
       fail: err => {
@@ -248,6 +268,7 @@ const saveVideoToPhotoLibrary = async filePath => {
     wx.saveVideoToPhotosAlbum({
       filePath,
       success: res => {
+        removeTempFile(filePath);
         resolve(res);
       },
       fail: err => {
@@ -255,4 +276,20 @@ const saveVideoToPhotoLibrary = async filePath => {
       }
     });
   });
+};
+
+/** 
+ * 删除临时文件
+ */
+const removeTempFile = filePath => {
+  const fs = wx.getFileSystemManager();
+  fs.unlink({
+    filePath,
+    success: res => {
+      console.log(`临时文件 ${filePath} 已删除`);
+    },
+    fail: err => {
+      console.error(`临时文件 ${filePath} 删除失败: ${err.errMsg}`);
+    }
+  })
 };

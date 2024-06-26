@@ -1,1 +1,6 @@
 /* pages/settings/history/index.wxss */
+
+.link {
+  word-break: break-all;  /* 断字 */
+  white-space: normal;    /* 多行显示 */
+}

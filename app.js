@@ -26,6 +26,7 @@ App({
       nickName: ''
     };
 
+    this.globalData.xhsCookie = wx.getStorageSync('xhsCookie') || '';
     this.globalData.weiboCookie = wx.getStorageSync('weiboCookie') || '';
     this.globalData.weiboCookiesPoolUrl = wx.getStorageSync('weiboCookiesPoolUrl') || '';
     this.globalData.logs = wx.getStorageSync('logs') || [];
