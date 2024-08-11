@@ -44,10 +44,10 @@
         <image class="details" src="{{detailsIconUrl}}" />
       </button>
     </view>
-    <view class="form-cell" hover-class="hover-style">
+    <!-- <view class="form-cell" hover-class="hover-style">
       <view>常见问题</view>
       <image class="details" src="{{detailsIconUrl}}" />
-    </view>
+    </view> -->
     <view class="form-cell button-wrapper" hover-class="hover-style">
       <button class="details-button" open-type="contact" hover-class="none">
         <view>联系客服</view>

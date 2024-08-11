@@ -46,7 +46,7 @@ Page({
     app.setUserInfo(this.data.userInfo);
 
     wx.request({
-      url: 'https://api.ibenzene.top/update-nickname',
+      url: 'https://api.ibenzene.top/images-downloader/update-nickname',
       method: 'POST',
       data: {
         nickName: this.data.userInfo.nickName
@@ -91,7 +91,7 @@ Page({
             console.log(`code: ${res.code}`);
           }
           wx.request({
-            url: 'https://api.ibenzene.top/login',
+            url: 'https://api.ibenzene.top/images-downloader/login',
             method: 'POST',
             data: {
               code: res.code,

@@ -75,7 +75,7 @@ const fetchUrl = async (url, token, headers, useProxy, needRedirect) => {
   return new Promise((resolve, reject) => {
     if (useProxy) {
       wx.request({
-        url: `https://api.ibenzene.top/proxy`,
+        url: `https://api.ibenzene.top/images-downloader/proxy`,
         method: 'POST', // 使用 POST 方法来传递实际请求的具体信息
         header: {
           Authorization: token // 访问代理 API 需要鉴权
