@@ -3,8 +3,8 @@
 App({
   /** 全局变量 */
   globalData: {
-    accentColor: '#eab33e', // 主题色
-    accentColorLight: '#fdf4b3', // 主题色（浅）
+    accentColor: '#f4b007', // 主题色
+    accentColorLight: '#fff4aa', // 主题色（浅）
     defaultAvatarUrl: 'images/avatar.svg', // 默认头像的 URL
 
     userInfo: null, // 用户个人信息
