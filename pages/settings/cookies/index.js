@@ -56,4 +56,4 @@ Page({
       icon: 'success'
     });
   }
-})
+});

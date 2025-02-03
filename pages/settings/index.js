@@ -46,8 +46,8 @@ Page({
     app.setUserInfo(this.data.userInfo);
 
     wx.request({
-      url: 'https://api.ibenzene.top/images-downloader/update-nickname',
-      method: 'POST',
+      url: app.globalData.isDebuggingBackend ? 'http://localhost:30081/v1/user/nickname' : 'https://api.ibenzene.top/image-downloader/v1/user/nickname',
+      method: 'PUT',
       data: {
         nickName: this.data.userInfo.nickName
       },
@@ -87,11 +87,11 @@ Page({
     wx.login({
       success: res => {
         if (res.code) {
-          if (app.globalData.isDebug) {
+          if (app.globalData.logDebugMsg) {
             console.log(`code: ${res.code}`);
           }
           wx.request({
-            url: 'https://api.ibenzene.top/images-downloader/login',
+            url: app.globalData.isDebuggingBackend ? 'http://localhost:30081/v1/user/login' : 'https://api.ibenzene.top/image-downloader/v1/user/login',
             method: 'POST',
             data: {
               code: res.code,
@@ -99,7 +99,7 @@ Page({
             },
             success: res => {
               if (res.data.token) {
-                if (app.globalData.isDebug) {
+                if (app.globalData.logDebugMsg) {
                   console.log(`token: ${res.data.token}`);
                 }
                 this.setData({
@@ -175,4 +175,4 @@ Page({
       icon: 'success'
     });
   }
-})
+});

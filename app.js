@@ -15,7 +15,8 @@ App({
     weiboCookiesPoolUrl: '', // 微博 Cookies 池的 URL
     logs: [], // 下载日志
 
-    isDebug: true // 是否要打印调试信息
+    isDebuggingBackend: false, // 是否正在调试后端代码
+    logDebugMsg: true // 是否要记录调试信息
   },
 
   /** 小程序初始化 */
@@ -31,7 +32,7 @@ App({
     this.globalData.weiboCookiesPoolUrl = wx.getStorageSync('weiboCookiesPoolUrl') || '';
     this.globalData.logs = wx.getStorageSync('logs') || [];
 
-    if (this.globalData.isDebug && this.globalData.token) {
+    if (this.globalData.logDebugMsg && this.globalData.token) {
       console.log(`token: ${this.globalData.token}`);
     }
   },
@@ -71,4 +72,4 @@ App({
     this.globalData.logs = logs;
     wx.setStorageSync('logs', this.globalData.logs);
   }
-})
+});

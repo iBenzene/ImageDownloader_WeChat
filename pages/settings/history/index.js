@@ -16,10 +16,9 @@ Page({
 
   /** 处理历史记录点击事件 */
   historyTapped(e) {
-    console.log(e);
     wx.setClipboardData({
       data: e._relatedInfo.anchorTargetText,
-      success: res => {
+      success: _ => {
         wx.showToast({
           title: '已复制到剪贴板',
           icon: 'success',
@@ -37,4 +36,4 @@ Page({
     const app = getApp();
     app.updateLogs(this.data.logs);
   }
-})
+});

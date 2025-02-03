@@ -6,9 +6,10 @@
       <input placeholder="请输入 Cookie" value="{{xhsCookie}}" bindconfirm="setXhsCookie" maxlength="-1" />
     </view>
   </view>
-  <view class="tip below-tip">小红书 Cookie 仅用于下载视频。</view>
+  <view class="tip below-tip">小红书 Cookie 仅用于下载视频，我们不会在后台记录你的敏感信息。</view>
+  <view class="tip below-tip">由于平台的限制，没有 Cookie 将无法下载原始质量的视频。如有相应的需求，请自行通过抓包等方式获取。</view>
 
-  <view class="tip above-tip">微博 Cookie</view>
+  <!-- <view class="tip above-tip">微博 Cookie</view>
   <view class="form-group">
     <view class="form-cell">
       <input placeholder="请输入 Cookie" value="{{weiboCookie}}" bindconfirm="setWeiboCookie" maxlength="-1" />
@@ -21,5 +22,5 @@
       <input placeholder="请输入 Cookies 池的 URL" value="{{weiboCookiesPoolUrl}}" bindconfirm="setWeiboCookiesPoolUrl" maxlength="-1" />
     </view>
   </view>
-  <view class="tip below-tip">微博 Cookies 池仅接受符合特定格式的 JSON 数据，请在「设置」中的「常见问题」内了解详情。</view>
+  <view class="tip below-tip">微博 Cookies 池仅接受符合特定格式的 JSON 数据，请在「设置」中的「常见问题」内了解详情。</view> -->
 </view>

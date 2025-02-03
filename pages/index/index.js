@@ -59,7 +59,7 @@ Page({
   },
 
   /** 处理下载按钮点击事件 */
-  downloadButtonTapped() {
+  async downloadButtonTapped() {
     if (this.data.linkInput.trim() === '') {
       // 文本输入框为空
       this.setData({
@@ -107,7 +107,8 @@ Page({
     const weiboCookie = app.globalData.weiboCookie;
     const weiboCookiesPoolUrl = app.globalData.weiboCookiesPoolUrl;
     const logs = app.globalData.logs;
-    const isDebug = app.globalData.isDebug;
+    const logDebugMsg = app.globalData.logDebugMsg;
+    const isDebuggingBackend = app.globalData.isDebuggingBackend;
 
     // 由于微信小程序的一些限制, 部分下载器需要结合代理使用
     // 可惜, 目前支持的所有下载器都需要走代理（
@@ -128,19 +129,21 @@ Page({
       }
     }
 
-    // 异步地执行对于每一个有效链接的下载操作
-    urls.forEach(url => {
+    // 同步地执行对于每一个有效链接的下载操作
+    for (let [index, url] of urls.entries()) {
       wx.showLoading({
-        title: '下载中'
+        title: '准备下载中'
       })
-      download(url, this.data.selectedDownloader, token, xhsCookie, weiboCookie, weiboCookiesPoolUrl, useProxy, isDebug).then(() => {
-        wx.hideLoading()
+
+      try {
+        await download(url, this.data.selectedDownloader, token, xhsCookie, weiboCookie, weiboCookiesPoolUrl, useProxy, logDebugMsg, isDebuggingBackend)
+
         wx.showToast({
           title: '下载成功',
           icon: 'success'
         });
         this.setData({
-          feedbackMessage: '已保存到相册',
+          feedbackMessage: `已保存到相册（${index + 1} / ${urls.length}）`,
           isError: false
         });
         // 添加一条日志记录
@@ -149,18 +152,17 @@ Page({
           url
         });
         app.updateLogs(logs);
-      }).catch(err => {
-        wx.hideLoading()
+      } catch (err) {
         wx.showToast({
           title: '下载失败',
           icon: 'none'
         });
         this.setData({
-          feedbackMessage: err.message,
+          feedbackMessage: `${err.message}（${index + 1} / ${urls.length}）`,
           isError: true
         });
-      });
-    })
+      }
+    }
   },
 
   /** 处理清空按钮点击事件 */
@@ -170,4 +172,4 @@ Page({
       feedbackMessage: null
     });
   }
-})
+});
