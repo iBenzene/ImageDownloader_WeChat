@@ -9,8 +9,9 @@
 ❤️ 或许「**苯苯存图**」可以帮助你～
 
 <div align=center>
-  <img src="https://default.upcdn.ibenzene.top/%E3%80%8A%E8%8B%AF%E8%8B%AF%E5%AD%98%E5%9B%BE%E3%80%8B%E9%A2%84%E8%A7%88%E5%9B%BE%EF%BC%88%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%89.png" alt="预览图" width="50%"></img>
+  <img src="https://cdn.ibz0.cn/image-downloader/Preview_WeChat.png" alt="预览图" width="50%"></img>
 </div>
+
 
 ## 支持功能
 
