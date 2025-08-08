@@ -9,22 +9,16 @@
 ❤️ 或许「**苯苯存图**」可以帮助你～
 
 <div align=center>
-  <img src="https://cdn.ibenzene.net/image-downloader/Preview_WeChat.png" alt="预览图" width="50%"></img>
+  <img src="https://cdn.ibenzene.net/image-downloader/Preview_WeChat.png" alt="预览图" width="30%"></img>
 </div>
+## 快速开始
 
+🔍 打开微信，搜索小程序「苯苯存图」，无需进行任何配置即可使用。
 
 ## 支持功能
 
-✅ 输入单个或多个链接，批量保存小红书 **无水印** 图片或视频。
+✅ 输入单个或多个链接，批量保存小红书图片或视频。
 
 ✅ 输入单个或多个链接，批量保存米游社图片。
 
 ✅ 输入单个或多个链接，批量保存微博图片。
-
-## 预计支持
-
-🚧 输入单个或多个链接，批量保存 Lofter 图片。
-
-🚧 输入单个或多个链接，批量保存抖音视频。
-
-🚧 输入单个或多个链接，批量保存哔哩哔哩视频。

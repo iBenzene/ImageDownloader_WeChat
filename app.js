@@ -1,75 +1,63 @@
 // app.js
 
+const checkUpdate = require('./utils/update.js');
+
 App({
-  /** 全局变量 */
-  globalData: {
-    accentColor: '#f4b007', // 主题色
-    accentColorLight: '#fff4aa', // 主题色（浅）
-    defaultAvatarUrl: 'images/avatar.svg', // 默认头像的 URL
+    /** 全局变量 */
+    globalData: {
+        accentColor: '#f4b007', // 主题色
+        accentColorLight: '#fff4aa', // 主题色（浅）
+        defaultAvatarUrl: 'images/avatar.svg', // 默认头像的 URL
 
-    userInfo: null, // 用户个人信息
-    token: '', // 用户 Token
+        userInfo: null, // 用户个人信息
+        token: '', // 用户 Token
 
-    xhsCookie: '', // 小红书 Cookie
-    weiboCookie: '', // 微博 Cookie
-    weiboCookiesPoolUrl: '', // 微博 Cookies 池的 URL
-    logs: [], // 下载日志
+        xhsCookie: '', // 小红书 Cookie
+        logs: [], // 下载日志
 
-    isDebuggingBackend: false, // 是否正在调试后端代码
-    logDebugMsg: true // 是否要记录调试信息
-  },
+        isDebuggingBackend: false, // 是否正在调试后端代码
+        logDebugMsg: true // 是否要记录调试信息
+    },
 
-  /** 小程序初始化 */
-  onLaunch() {
-    this.globalData.token = wx.getStorageSync('token') || '';
-    this.globalData.userInfo = wx.getStorageSync('userInfo') || {
-      avatarUrl: this.globalData.defaultAvatarUrl,
-      nickName: ''
-    };
+    /** 小程序初始化 */
+    onLaunch() {
+        checkUpdate(); // 检查更新
 
-    this.globalData.xhsCookie = wx.getStorageSync('xhsCookie') || '';
-    this.globalData.weiboCookie = wx.getStorageSync('weiboCookie') || '';
-    this.globalData.weiboCookiesPoolUrl = wx.getStorageSync('weiboCookiesPoolUrl') || '';
-    this.globalData.logs = wx.getStorageSync('logs') || [];
+        this.globalData.token = wx.getStorageSync('token') || '';
+        this.globalData.userInfo = wx.getStorageSync('userInfo') || {
+            avatarUrl: this.globalData.defaultAvatarUrl,
+            nickName: ''
+        };
 
-    if (this.globalData.logDebugMsg && this.globalData.token) {
-      console.log(`token: ${this.globalData.token}`);
+        this.globalData.xhsCookie = wx.getStorageSync('xhsCookie') || '';
+        this.globalData.logs = wx.getStorageSync('logs') || [];
+
+        if (this.globalData.logDebugMsg && this.globalData.token) {
+            console.log(`token: ${this.globalData.token}`);
+        }
+    },
+
+    /** 设置用户个人信息 */
+    setUserInfo(userInfo) {
+        this.globalData.userInfo = userInfo;
+        wx.setStorageSync('userInfo', this.globalData.userInfo);
+    },
+
+    /** 设置用户 Token */
+    setToken(token) {
+        this.globalData.token = token;
+        wx.setStorageSync('token', this.globalData.token);
+    },
+
+    /** 设置小红书 Cookie */
+    setXhsCookie(xhsCookie) {
+        this.globalData.xhsCookie = xhsCookie;
+        wx.setStorageSync('xhsCookie', this.globalData.xhsCookie);
+    },
+
+    /** 更新下载日志 */
+    updateLogs(logs) {
+        this.globalData.logs = logs;
+        wx.setStorageSync('logs', this.globalData.logs);
     }
-  },
-
-  /** 设置用户个人信息 */
-  setUserInfo(userInfo) {
-    this.globalData.userInfo = userInfo;
-    wx.setStorageSync('userInfo', this.globalData.userInfo);
-  },
-
-  /** 设置用户 Token */
-  setToken(token) {
-    this.globalData.token = token;
-    wx.setStorageSync('token', this.globalData.token);
-  },
-
-  /** 设置小红书 Cookie */
-  setXhsCookie(xhsCookie) {
-    this.globalData.xhsCookie = xhsCookie;
-    wx.setStorageSync('xhsCookie', this.globalData.xhsCookie);
-  },
-
-  /** 设置微博 Cookie */
-  setWeiboCookie(weiboCookie) {
-    this.globalData.weiboCookie = weiboCookie;
-    wx.setStorageSync('weiboCookie', this.globalData.weiboCookie);
-  },
-
-  /** 设置微博 Cookies 池的 URL */
-  setWeiboCookiesPoolUrl(weiboCookiesPoolUrl) {
-    this.globalData.weiboCookiesPoolUrl = weiboCookiesPoolUrl;
-    wx.setStorageSync('weiboCookiesPoolUrl', this.globalData.weiboCookiesPoolUrl);
-  },
-
-  /** 更新下载日志 */
-  updateLogs(logs) {
-    this.globalData.logs = logs;
-    wx.setStorageSync('logs', this.globalData.logs);
-  }
 });

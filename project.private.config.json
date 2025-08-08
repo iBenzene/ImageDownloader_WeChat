@@ -3,7 +3,22 @@
   "projectname": "%E8%8B%AF%E8%8B%AF%E5%AD%98%E5%9B%BE",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": true
+    "urlCheck": true,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "showShadowRootInWxmlPanel": true,
+    "useStaticServer": false,
+    "useLanDebug": false,
+    "showES6CompileOption": false,
+    "checkInvalidKey": true,
+    "ignoreDevUnusedFiles": true,
+    "bigPackageSizeSupport": false
   },
-  "libVersion": "3.7.4"
+  "libVersion": "3.9.0",
+  "condition": {}
 }
