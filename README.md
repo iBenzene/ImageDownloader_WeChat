@@ -11,6 +11,7 @@
 <div align=center>
   <img src="https://cdn.ibenzene.net/image-downloader/Preview_WeChat.png" alt="预览图" width="30%"></img>
 </div>
+
 ## 快速开始
 
 🔍 打开微信，搜索小程序「苯苯存图」，无需进行任何配置即可使用。
